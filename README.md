@@ -1,8 +1,11 @@
 <h1 align="center"> Incidentes Aéreos </h1>
 
-![GitHub top language](https://img.shields.io/github/languages/top/Wandersonrp/incidentes-aereos-dados-abertos?style=plastic)
+<div align="center">
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Wandersonrp/incidentes-aereos-dados-abertos?style=plastic)
+![GitHub top language](https://img.shields.io/github/languages/top/Wandersonrp/incidentes-aereos-dados-abertos?style=plastic) ![GitHub last commit](https://img.shields.io/github/last-commit/Wandersonrp/incidentes-aereos-dados-abertos?style=plastic)
+</div>
+
+
 <hr>
 <br>
 
