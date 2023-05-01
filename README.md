@@ -9,4 +9,4 @@
 <hr>
 <br>
 
-Api que consome os dados abertos da Agência Nacional de Aviação Civil - ANAC e realiza a filtragem das ocorrências aéreas registradas pela Agência Reguladora até o final do ano de 2021.
+Api que consome os dados abertos da Agência Nacional de Aviação Civil - ANAC e realiza a filtragem das ocorrências aéreas registradas pela Agência Reguladora até o presente momento.
