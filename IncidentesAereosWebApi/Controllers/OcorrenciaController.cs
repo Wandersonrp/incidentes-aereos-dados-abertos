@@ -1,5 +1,6 @@
 ﻿using IncidentesAereosWebApi.Interfaces.Servicos;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace IncidentesAereosWebApi.Controllers
@@ -15,6 +16,7 @@ namespace IncidentesAereosWebApi.Controllers
         }
 
         [Route("/ocorrencias")]
+        [HttpGet]
         public async Task<IActionResult> ListarOcorrencias()
         {
             var ocorrencias = await _ocorrencia.ListarOcorrencias();
@@ -110,7 +112,7 @@ namespace IncidentesAereosWebApi.Controllers
             if (ano != null && ano != string.Empty)
                 ano = ano.Trim();
 
-            if(Regex.IsMatch(ano, @"^\d{4}$"))
+            if (Regex.IsMatch(ano.ToString(), @"^\d{4}$"))
             {
                 var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Data_da_Ocorrencia.Contains(ano));
 
@@ -121,6 +123,27 @@ namespace IncidentesAereosWebApi.Controllers
             }
             else 
                 return BadRequest("Informe um ano válido. Ex.: 2013.");
+        }
+
+        [Route("/ocorrencias/fabricante/{fabricante}")]
+        [HttpGet]
+        public async Task<IActionResult> ListarOcorrenciasPorFabricante(string fabricante)
+        {
+            if(fabricante != null && fabricante != string.Empty)
+                fabricante = fabricante.TrimStart().TrimEnd();
+
+            if (Regex.IsMatch(fabricante, "[a-zA-Z]+"))
+            {
+                fabricante = fabricante.ToUpper();
+                var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Nome_do_Fabricante.Contains(fabricante));
+
+                if (ocorrencias != null && ocorrencias.Count() > 0)
+                    return Ok(ocorrencias);
+                else
+                    return BadRequest($"Não foi possível retornar as ocorrências por: {fabricante}");
+            }
+            else
+                return BadRequest("Informe um nome de fabricante válido. Ex.: CESSNA AIRCRAFT");
         }
     }
 }
