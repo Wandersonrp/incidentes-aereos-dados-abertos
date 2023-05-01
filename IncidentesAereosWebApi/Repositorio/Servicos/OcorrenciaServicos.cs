@@ -45,7 +45,7 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
         public async Task<IEnumerable<OcorrenciaModel>> ListarOcorrenciaPorExpressao(Expression<Func<OcorrenciaModel, bool>> expressao)
         {
             var ocorrencias = await _context.Ocorrencia.Where(expressao).ToListAsync();
-            return ocorrencias.ToList();
+            return ocorrencias;
         }
 
         public Task<OcorrenciaModel> ListarOcorrenciaPorId(int id)
