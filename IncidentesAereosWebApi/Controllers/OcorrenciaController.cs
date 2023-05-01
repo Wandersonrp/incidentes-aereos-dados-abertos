@@ -41,6 +41,33 @@ namespace IncidentesAereosWebApi.Controllers
                 return Ok(ocorrencias);
             else
                 return BadRequest($"Não foi possível retornar as ocorrências por: {icao}");
-        } 
+        }
+
+        [Route("/ocorrencias/municipio/{municipio}")]
+        [HttpGet]
+        public async Task<IActionResult> ListarOcorrenciaPorMunicipio(string? municipio)
+        {
+            if (municipio != null && municipio != string.Empty)
+                municipio = municipio.ToUpper();
+
+            var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Municipio == municipio);
+
+            if (ocorrencias != null && ocorrencias.Count() > 0)
+                return Ok(ocorrencias);
+            else
+                return BadRequest($"Não foi possível retornar as ocorrências por: {municipio}");
+        }
+
+        [Route("/ocorrencias/fatais")]
+        [HttpGet]
+        public async Task<IActionResult> ListarOcorrenciaVitimasFatais()
+        {
+            var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Lesoes_Fatais_Tripulantes > 0 || o.Lesoes_Fatais_Passageiros > 0 || o.Lesoes_Fatais_Terceiros > 0);
+
+            if (ocorrencias != null && ocorrencias.Count() > 0)
+                return Ok(ocorrencias);
+            else
+                return BadRequest("Nenhuma ocorrência com vítimas fatais foi encontrada.");
+        }
     }
 }
