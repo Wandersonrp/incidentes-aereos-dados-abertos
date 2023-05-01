@@ -14,6 +14,17 @@ namespace IncidentesAereosWebApi.Controllers
             _ocorrencia = ocorrencia;
         }
 
+        [Route("/ocorrencias")]
+        public async Task<IActionResult> ListarOcorrencias()
+        {
+            var ocorrencias = await _ocorrencia.ListarOcorrencias();
+
+            if (ocorrencias != null && ocorrencias.Count() > 0)
+                return Ok(ocorrencias);
+            else
+                return BadRequest("Não foi possível retornar todas as ocorrências.");
+        }
+
         [Route("/ocorrencias/uf/{uf}")]
         [HttpGet]
         public async Task<IActionResult> ListarOcorrenciaPorUf(string uf)
