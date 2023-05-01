@@ -54,9 +54,8 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
         }
 
         public async Task<IEnumerable<OcorrenciaModel>> ListarOcorrencias()
-        {
-            
-            var ocorrencias = await _context.Ocorrencia.Take(10).ToListAsync();            
+        {            
+            var ocorrencias = await _context.Ocorrencia.ToListAsync();            
             return ocorrencias;
         }
     }
