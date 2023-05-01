@@ -8,6 +8,6 @@ namespace IncidentesAereosWebApi.Interfaces.Servicos
         Task<IEnumerable<OcorrenciaModel>> ListarOcorrencias();
         Task<OcorrenciaModel> ListarOcorrenciaPorId(int id);
         Task<IEnumerable<OcorrenciaModel>> ListarOcorrenciaPorExpressao(Expression<Func<OcorrenciaModel, bool>> expressao);
-        Task<bool> InserirOcorrenciasBancoDados();
+        Task<bool> InserirOcorrenciasBancoDados();        
     }
 }
