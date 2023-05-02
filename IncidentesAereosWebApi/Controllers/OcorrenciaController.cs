@@ -147,9 +147,9 @@ namespace IncidentesAereosWebApi.Controllers
         }
 
         /// <summary>
-        /// O tipo de operação pode ser: Voo Privado, Voo de Instrução e Voo Regular
+        /// Retorna a lista de ocorrências por tipo de operação.
         /// </summary>
-        /// <param name="operacao"></param>
+        /// <param name="operacao">O tipo de operação pode ser: Voo Privado, Voo de Instrução e Voo Regular</param>
         /// <returns></returns>
         [Route("/ocorrencias/operacao/{operacao}")]
         [HttpGet]
