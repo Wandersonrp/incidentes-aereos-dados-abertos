@@ -145,5 +145,31 @@ namespace IncidentesAereosWebApi.Controllers
             else
                 return BadRequest("Informe um nome de fabricante válido. Ex.: CESSNA AIRCRAFT");
         }
+
+        /// <summary>
+        /// O tipo de operação pode ser: Voo Privado, Voo de Instrução e Voo Regular
+        /// </summary>
+        /// <param name="operacao"></param>
+        /// <returns></returns>
+        [Route("/ocorrencias/operacao/{operacao}")]
+        [HttpGet]
+        public async Task<IActionResult> ListarOcorrenciasPorOperacao(string operacao)
+        {
+            if (operacao != null && operacao != string.Empty)
+                operacao = operacao.TrimStart().TrimEnd();
+
+            if (Regex.IsMatch(operacao, "[a-zA-Z]+"))
+            {
+                //operacao = operacao.ToUpper();
+                var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Operacao == operacao);
+
+                if (ocorrencias != null && ocorrencias.Count() > 0)
+                    return Ok(ocorrencias);
+                else
+                    return BadRequest($"Não foi possível retornar as ocorrências por: {operacao}");
+            }
+            else
+                return BadRequest("Informe uma operação válida. Ex.: Voo Privado");
+        }
     }
 }
