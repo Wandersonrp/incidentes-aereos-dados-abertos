@@ -24,7 +24,7 @@ namespace IncidentesAereosWebApi.Controllers
             if (ocorrencias != null && ocorrencias.Count() > 0)
                 return Ok(ocorrencias);
             else
-                return BadRequest("Não foi possível retornar todas as ocorrências.");
+                return NotFound("Não foi possível retornar todas as ocorrências.");
         }
 
         [Route("/ocorrencias/uf/{uf}")]
@@ -43,7 +43,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {uf}");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {uf}");
             }
             else
                 return BadRequest("Informe uma UF válida. Ex.: MG.");
@@ -65,7 +65,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {icao}");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {icao}");
             }
             else
                 return BadRequest("Informe um ICAO válido. Ex.: SBCF.");
@@ -87,7 +87,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {municipio}");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {municipio}");
             }
             else
                 return BadRequest("Informe um município válido. Ex.: São Paulo.");
@@ -102,7 +102,7 @@ namespace IncidentesAereosWebApi.Controllers
             if (ocorrencias != null && ocorrencias.Count() > 0)
                 return Ok(ocorrencias);
             else
-                return BadRequest("Nenhuma ocorrência com vítimas fatais foi encontrada.");
+                return NotFound("Nenhuma ocorrência com vítimas fatais foi encontrada.");
         }
 
         [Route("/ocorrencias/ano/{ano}")]
@@ -116,7 +116,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {ano}.");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {ano}.");
             }
             else
                 return BadRequest("Informe um ano válido. Ex.: 2013.");
@@ -137,7 +137,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {fabricante}");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {fabricante}");
             }
             else
                 return BadRequest("Informe um nome de fabricante válido. Ex.: CESSNA AIRCRAFT");
@@ -163,7 +163,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {operacao}");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {operacao}");
             }
             else
                 return BadRequest("Informe uma operação válida. Ex.: Voo Privado");
@@ -180,7 +180,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências pelo período: {anoInicio}-{anoFinal}");
+                    return NotFound($"Não foi possível retornar as ocorrências pelo período: {anoInicio}-{anoFinal}");
             }
             else
                 return BadRequest($"Informe um período válido: 2019-2021");
@@ -205,7 +205,7 @@ namespace IncidentesAereosWebApi.Controllers
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
-                    return BadRequest($"Não foi possível retornar as ocorrências por: {faseOperacao}");
+                    return NotFound($"Não foi possível retornar as ocorrências por: {faseOperacao}");
             }
             else 
                 return BadRequest("Informe uma fase de operação válida: Cruzeiro");
