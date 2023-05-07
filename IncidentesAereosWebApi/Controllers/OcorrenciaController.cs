@@ -107,21 +107,18 @@ namespace IncidentesAereosWebApi.Controllers
 
         [Route("/ocorrencias/ano/{ano}")]
         [HttpGet]
-        public async Task<IActionResult> ListarOcorrenciaAno(string ano)
-        {
-            if (ano != null && ano != string.Empty)
-                ano = ano.Trim();
-
+        public async Task<IActionResult> ListarOcorrenciaAno(int ano)
+        {            
             if (Regex.IsMatch(ano.ToString(), @"^\d{4}$"))
             {
-                var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Data_da_Ocorrencia.Contains(ano));
+                var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Data_da_Ocorrencia.Year == ano);
 
                 if (ocorrencias != null && ocorrencias.Count() > 0)
                     return Ok(ocorrencias);
                 else
                     return BadRequest($"Não foi possível retornar as ocorrências por: {ano}.");
             }
-            else 
+            else
                 return BadRequest("Informe um ano válido. Ex.: 2013.");
         }
 
@@ -170,6 +167,23 @@ namespace IncidentesAereosWebApi.Controllers
             }
             else
                 return BadRequest("Informe uma operação válida. Ex.: Voo Privado");
+        }
+
+        [Route("/ocorrencias/inicio/{anoInicio}/fim/{anoFinal}")]
+        [HttpGet]
+        public async Task<IActionResult> ListarOcorrenciasPorPeriodo(int anoInicio, int anoFinal)
+        {
+            if (Regex.IsMatch(anoInicio.ToString(), @"^\d{4}$") && Regex.IsMatch(anoFinal.ToString(), @"^\d{4}$"))
+            {
+                var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Data_da_Ocorrencia.Year >= anoInicio && o.Data_da_Ocorrencia.Year <= anoFinal);
+
+                if (ocorrencias != null && ocorrencias.Count() > 0)
+                    return Ok(ocorrencias);
+                else
+                    return BadRequest($"Não foi possível retornar as ocorrências pelo período: {anoInicio}-{anoFinal}");
+            }
+            else
+                return BadRequest($"Informa um período válido: 2019-2021");
         }
     }
 }
