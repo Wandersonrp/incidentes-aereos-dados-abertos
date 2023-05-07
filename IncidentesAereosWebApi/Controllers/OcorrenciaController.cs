@@ -183,7 +183,32 @@ namespace IncidentesAereosWebApi.Controllers
                     return BadRequest($"Não foi possível retornar as ocorrências pelo período: {anoInicio}-{anoFinal}");
             }
             else
-                return BadRequest($"Informa um período válido: 2019-2021");
+                return BadRequest($"Informe um período válido: 2019-2021");
+        }
+
+        /// <summary>
+        /// Retorna a lista de ocorrências por fase da operação.
+        /// </summary>
+        /// <param name="faseOperacao">A fase da operação pode ser: Decolagem, Corrida após pouso, Cruzeiro, Descida, Subida, Pouso, Aproximalção, Táxi, Arremetida, Manobra, Procedimento de Aproximação, Estacionamento, Indeterminada, Voo a baixa altura, Em rota, Circuto de Tráfego[sic], Operação de Solo, Cheque de motor ou rotor.</param>
+        /// <returns></returns>
+        [Route("/ocorrencias/fase/{faseOperacao}")]
+        [HttpGet]
+        public async Task<IActionResult> ListarOcorrenciasPorFaseOperacao(string faseOperacao)
+        {
+            if(faseOperacao != null && faseOperacao != string.Empty)
+                faseOperacao = faseOperacao.Trim();
+
+            if(Regex.IsMatch(faseOperacao, "[a-zA-Z]+"))
+            {
+                var ocorrencias = await _ocorrencia.ListarOcorrenciaPorExpressao(o => o.Fase_da_Operacao == faseOperacao);
+
+                if (ocorrencias != null && ocorrencias.Count() > 0)
+                    return Ok(ocorrencias);
+                else
+                    return BadRequest($"Não foi possível retornar as ocorrências por: {faseOperacao}");
+            }
+            else 
+                return BadRequest("Informe uma fase de operação válida: Cruzeiro");
         }
     }
 }
