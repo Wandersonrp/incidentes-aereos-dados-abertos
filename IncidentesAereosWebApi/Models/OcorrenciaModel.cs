@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata.Ecma335;
 
 namespace IncidentesAereosWebApi.Models
 {
@@ -20,13 +21,14 @@ namespace IncidentesAereosWebApi.Models
         private int _lesoesDesconhecidasTerceiros;
         private int _pmd;
         private int _numeroAssentos;
+        private DateTime _dataOcorrencia;
         
         public int Id { get; set; }
         public string? Numero_da_Ocorrencia { get; set; }        
         public string? Numero_da_Ficha { get; set; }        
         public string? Operador_Padronizado { get; set; }        
         public string? Classificacao_da_Ocorrencia { get; set; }        
-        public string? Data_da_Ocorrencia { get; set; }        
+        public DateTime Data_da_Ocorrencia { get => _dataOcorrencia; set => _dataOcorrencia = Convert.ToDateTime(value); }     
         public string? Hora_da_Ocorrencia { get; set; }
         public string? Municipio { get; set; }
         public string? UF { get; set; }
