@@ -3,6 +3,7 @@ using IncidentesAereosWebApi.Interfaces.Servicos;
 using IncidentesAereosWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 namespace IncidentesAereosWebApi.Repositorio.Servicos
 {
@@ -19,15 +20,14 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
         {
             try
             {
-                var ocorrencias = await ListarOcorrencias();
-
+                var ocorrencias = await ConsumirApi();               
                 if(ocorrencias != null && ocorrencias.Count() > 0)
                 {
                     int contador = 1;
                     ocorrencias.ToList();
                     foreach(var o in ocorrencias)
                     {
-                        o.Id = contador; 
+                        o.Id = contador;                                                
                         await _context.Ocorrencia.AddAsync(o);
                         await _context.SaveChangesAsync();
                         contador++;
@@ -56,6 +56,14 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
         public async Task<IEnumerable<OcorrenciaModel>> ListarOcorrencias()
         {            
             var ocorrencias = await _context.Ocorrencia.ToListAsync();            
+            return ocorrencias;
+        }
+
+        public async Task<IEnumerable<OcorrenciaModel>> ConsumirApi()
+        {
+            string url = "https://sistemas.anac.gov.br/dadosabertos/Seguranca%20Operacional/Ocorrencia/V_OCORRENCIA_AMPLA.json";
+
+            var ocorrencias = await DadosAbertos<OcorrenciaModel>.ConsumirApi(url);
             return ocorrencias;
         }
     }
