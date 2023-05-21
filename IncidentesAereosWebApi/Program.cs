@@ -18,14 +18,30 @@ namespace IncidentesAereosWebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Contexto
+            #region [Cors]
+            builder.Services.AddCors();
+            #endregion
+
+            #region [Context]
             builder.Services.AddDbContext<IncidentesAereosContext>(option =>
             option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            #endregion
 
-            // injeção de dependência
+            // injeï¿½ï¿½o de dependï¿½ncia
             builder.Services.AddScoped<IOcorrenciaServicos, OcorrenciaServicos>();
 
             var app = builder.Build();
+
+            #region [Cors]
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.WithMethods("GET");
+                c.AllowAnyOrigin();
+            });
+            #endregion
+
+            app.UseRouting();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
