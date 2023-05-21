@@ -23,13 +23,13 @@ namespace IncidentesAereosWebApi.Data.Context
 
             modelBuilder.Entity<OcorrenciaModel>()
                 .HasKey(p => p.Id);
-                        
+
             modelBuilder.Entity<OcorrenciaModel>()
                 .Property(p => p.Id)
                 .HasColumnName(_configuration["VAR:ID"]);
 
             modelBuilder.Entity<OcorrenciaModel>()
-                .Property(p => p.Numero_da_Ocorrencia)
+                .Property(p => p.Numero_da_Ocorrencia)                
                 .HasColumnName(_configuration["VAR:NUMERO_OCORRENCIA"]);
 
             modelBuilder.Entity<OcorrenciaModel>()

@@ -27,7 +27,7 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
                     ocorrencias.ToList();
                     foreach(var o in ocorrencias)
                     {
-                        o.Id = contador;                                                
+                        o.Id = contador;
                         await _context.Ocorrencia.AddAsync(o);
                         await _context.SaveChangesAsync();
                         contador++;
@@ -44,7 +44,7 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
 
         public async Task<IEnumerable<OcorrenciaModel>> ListarOcorrenciaPorExpressao(Expression<Func<OcorrenciaModel, bool>> expressao)
         {
-            var ocorrencias = await _context.Ocorrencia.Where(expressao).ToListAsync();
+            var ocorrencias = await _context.Ocorrencia.AsNoTracking().Where(expressao).ToListAsync();
             return ocorrencias;
         }
 
@@ -54,8 +54,8 @@ namespace IncidentesAereosWebApi.Repositorio.Servicos
         }
 
         public async Task<IEnumerable<OcorrenciaModel>> ListarOcorrencias()
-        {            
-            var ocorrencias = await _context.Ocorrencia.ToListAsync();            
+        {
+            var ocorrencias = _context.Ocorrencia.AsNoTracking().ToList();
             return ocorrencias;
         }
 
